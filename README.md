@@ -9,6 +9,7 @@ An OBS layout for LiveSplit
 - Right-click on LiveSplit, click on `Edit Layout...`
 - Add the `Dynamic Layout` component, located in `Other`
 ## OBS
+- Extract `dyn.html`, `dynUpdater.js` and `style.css` anywhere you'd like, as long as all files are together 
 - Create a new browser source
 - Select `Local file` and browse to `dyn.html`
 - Set size to `Width: 1000` and `Height: 500`
