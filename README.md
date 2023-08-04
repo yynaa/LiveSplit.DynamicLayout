@@ -16,8 +16,8 @@ An OBS layout for LiveSplit
 
 # Settings
 ## Javascript
--`framerate`: pretty self-explanatory
--`splitsMaxAmount`: maximum amount of splits shown on screen
+- `framerate`: pretty self-explanatory
+- `splitsMaxAmount`: maximum amount of splits shown on screen
 
 > [!IMPORTANT]
 > You need to start LiveSplit with the Dynamic Layout before starting OBS (or the browser).
