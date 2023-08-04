@@ -1,6 +1,7 @@
 ﻿//SETTINGS
-const websocketIP = "ws://127.0.0.1:8085";
-const framerate = 15
+const websocketIP = "ws://127.0.0.1:8085"; //DO NOT CHANGE FOR NOW!!
+const framerate = 15; //framerate
+const splitsMaxAmount = 5; //maximum amount of splits shown on screen
 
 //DO NOT EDIT
 const sMC = "█"
@@ -74,12 +75,11 @@ function document_UpdateTimer(timer, ms, color) {
 }
 
 splitsMaxLength = 0;
-splitsMaxAmount = 5;
 splits = [];
 splitAnimInterval = null;
 
 function document_UpdateSplitLooks() {
-    var offset = 332.5 - splits.length * 50
+    var offset = 832.5 - splits.length * 50
     document.getElementById("splits-container").style.top = offset + "px"
 
     document.getElementById("splits-container").style.width = splitsMaxLength + 20 + "px";
