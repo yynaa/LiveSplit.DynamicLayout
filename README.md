@@ -4,7 +4,7 @@ An OBS layout for LiveSplit
 
 # Setup
 ## LiveSplit
-- Copy `Flack.dll` and `LiveSplit.DynamicLayout.dll` to your `LiveSplit/Components` folder
+- Copy `Fleck.dll` and `LiveSplit.DynamicLayout.dll` to your `LiveSplit/Components` folder
 - Open LiveSplit, choose your layout
 - Right-click on LiveSplit, click on `Edit Layout...`
 - Add the `Dynamic Layout` component, located in `Other`
