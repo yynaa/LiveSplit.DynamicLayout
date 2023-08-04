@@ -19,4 +19,4 @@ An OBS layout for LiveSplit
 > A quick way to refresh the browser is to go in its properties, and press
 
 > [!NOTE]
-> You can set `Page permissions` to `No access to OBS` for better security
+> DO NOT set `Page permissions` to `No access to OBS`, it may disable Javascript
