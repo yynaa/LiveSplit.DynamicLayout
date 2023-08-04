@@ -1,0 +1,206 @@
+﻿body {
+    font-family: Roboto;
+    --corner-radius: 20px;
+}
+
+#timer-background {
+    width: 180px;
+    height: 100px;
+    line-height: 100px;
+    background: radial-gradient(circle, rgba(30,30,30,0.95) 0%, rgba(0,0,0,0.95) 100%);
+    color: white;
+    border-top-left-radius: var(--corner-radius);
+    position: fixed;
+    left: 800px;
+    top: 335px;
+    z-index: 0;
+}
+
+#timer {
+    width: 180px;
+    height: 100px;
+    line-height: 100px;
+    position: fixed;
+    font-weight: 300;
+    font-size: 50px;
+    text-align: center;
+    z-index: 1;
+}
+
+#timer-ms {
+    width: 180px;
+    height: 100px;
+    line-height: 30px;
+    position: fixed;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: right;
+    z-index: 1;
+}
+
+#info-background {
+    position: fixed;
+    width: 180px;
+    height: 45px;
+    line-height: 45px;
+    background: radial-gradient(circle, rgba(30,30,30,0.7) 0%, rgba(0,0,0,0.7) 100%);
+    color: white;
+    border-bottom-left-radius: var(--corner-radius);
+    border-bottom-right-radius: var(--corner-radius);
+    left: 800px;
+    top: 435px;
+    z-index: 0;
+}
+
+#info {
+    position: fixed;
+    font-size: 18px;
+    margin-left: 15px;
+    z-index: 1;
+}
+
+#infotime-background {
+    width: 90px;
+    height: 45px;
+    line-height: 45px;
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    border-bottom-right-radius: var(--corner-radius);
+    position: fixed;
+    left: 890px;
+    top: 435px;
+    text-align: center;
+    z-index: 1;
+}
+
+#infotime {
+    position: fixed;
+    left: 890px;
+    top: 435px;
+    width: 90px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    z-index: 0;
+}
+
+.splits-container-anim-slideIn {
+    animation-duration: 1s;
+    animation-name: splits_slideIn;
+}
+
+#splits-container {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 980px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.split-container {
+    position: relative;
+}
+
+.split-container-anim-slideIn{
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-name: split_slideIn;
+}
+
+.splits-container-anim-slideIn {
+    position: relative;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0,0.5,0,1);
+    animation-name: splits_slideIn;
+}
+
+.splits-container-anim-slideOut {
+    position: relative;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0,0.5,0,1);
+    animation-name: splits_slideOut;
+}
+
+.split-background {
+    position: relative;
+    height: 45px;
+    line-height: 45px;
+    text-align: left;
+    margin: 2.5px;
+    z-index: -3;
+    background: radial-gradient(circle, rgba(30,30,30,0.7) 0%, rgba(0,0,0,0.7) 100%);
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: var(--corner-radius);
+    border-top-left-radius: var(--corner-radius);
+    border-top-right-radius: var(--corner-radius);
+}
+
+.split-name {
+    width: 400px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 400;
+    z-index: -1;
+}
+
+.split-time-background {
+    width: 90px;
+    height: 45px;
+    line-height: 45px;
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    border-top-right-radius: var(--corner-radius);
+    position: relative;
+    bottom: 45px;
+    text-align: center;
+    z-index: -2;
+}
+
+.split-time {
+    position: relative;
+    width: 400px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 400;
+    z-index: -1;
+}
+
+@keyframes split_slideIn {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+@keyframes splits_slideIn {
+    from {
+        margin-top: 50px;
+    }
+
+    to {
+        margin-top: 0px;
+    }
+}
+
+@keyframes splits_slideOut {
+    from {
+        margin-top: -50px;
+    }
+
+    to {
+        margin-top: 0px;
+    }
+}
