@@ -92,9 +92,6 @@ function document_AddSplit(inputname, time, delta, color) {
         collection.item(0).remove();
         splits.shift();
     }
-
-    var length = 90 + 15 * 2 + displayTextWidth(inputname, "400 18px Roboto");
-    var leftBG = length - 90
     var subsplitOffset = 0
 
     var name = inputname
@@ -109,6 +106,9 @@ function document_AddSplit(inputname, time, delta, color) {
     if (name.includes("{")) {
         name = name.substring(name.indexOf("{") + 1, name.indexOf("}"))
     }
+
+    var length = 90 + 15 * 2 + displayTextWidth(name, "400 18px Roboto");
+    var leftBG = length - 90
 
 
     document.getElementById("splits-container").innerHTML = document.getElementById("splits-container").innerHTML
