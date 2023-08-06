@@ -2,6 +2,8 @@
 
 An OBS layout for LiveSplit
 
+![Showcase of the component](https://cdn.discordapp.com/attachments/916856242444570624/1137541813616525443/dynamiclayoutex.gif)
+
 # Setup
 ## LiveSplit
 - Copy `Fleck.dll` and `LiveSplit.DynamicLayout.dll` to your `LiveSplit/Components` folder
