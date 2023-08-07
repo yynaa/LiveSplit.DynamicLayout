@@ -86,6 +86,19 @@ function document_UpdateSplitLooks() {
     document.getElementById("splits-container").style.left = 982.5 - splitsMaxLength - 20 + "px";
 }
 
+function createElem(tag, classes, content = undefined, style = undefined, children = []) {
+    const elem = document.createElement(tag);
+    for (const c of classes) {
+        elem.classList.add(c);
+    }
+    if (content) elem.innerHTML = content;
+    if (style) elem.style = style;
+    for (const ch of children) {
+        elem.appendChild(ch);
+    }
+    return elem;
+}
+
 function document_AddSplit(inputname, time, delta, color) {
     if (splits.length >= splitsMaxAmount) {
         var collection = document.getElementsByClassName("split-container")
@@ -110,9 +123,28 @@ function document_AddSplit(inputname, time, delta, color) {
     var length = 90 + 15 * 2 + displayTextWidth(name, "400 18px Roboto");
     var leftBG = length - 90
 
+    const newSplit = createElem("div", ["split-container", "split-container-anim-slideIn"], undefined, undefined, [
+        createElem("div", ["split-background"], undefined, { "width": `${length}px` }, [
+            createElem("span", ["split-name"], name),
+            createElem("div", ["split-time-background"], undefined, { "left": `${leftBG}px` }, [
+                createElem("span", ["split-time"], delta, { "color": color })
+            ])
+        ])
+    ]);
+    //subsplit detection
+    if (name[0] == "-") {
+        name = name.substring(1);
+        newSplit.classList.add("subsplit");
+    }
 
-    document.getElementById("splits-container").innerHTML = document.getElementById("splits-container").innerHTML
-        + '<div class="split-container split-container-anim-slideIn" style="margin-right: ' + subsplitOffset + 'px;"><div class="split-background" style="width:' + length + 'px;"/><span class="split-name">' + name + '</span><div class="split-time-background" style="left:' + leftBG + 'px;" /><span class="split-time" style="color:' + color + ';">' + delta + '</span></div>';
+    document.getElementById("splits-container").appendChild(newSplit);
+
+    if (length > splitsMaxLength) { splitsMaxLength = length; }
+    splits[splits.length] = [name, time, delta, color];
+
+    document.getElementById("splits-container").classList.add("splits-container-anim-slideIn");
+
+
     if (length > splitsMaxLength) { splitsMaxLength = length; }
     splits[splits.length] = [name, time, delta, color];
 
