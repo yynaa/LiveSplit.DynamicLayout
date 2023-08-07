@@ -24,7 +24,7 @@ websocket.addEventListener("close", (event) => {
 websocket.addEventListener("message", (event) => {
     var message = event.data;
     var messageArray = message.split(sMC);
-    console.log(messageArray);
+    // console.log(messageArray);
 
     if (messageArray.length > 0) {
         switch (messageArray[0]) {
@@ -130,8 +130,10 @@ function document_ResetSplits() {
 function document_UndoSplit() {
     splits.pop();
 
-    var collection = document.getElementsByClassName("split-container")
-    const split = collection.item(collection.length - 1);
+    // Find newest split that is not in the process of animating out
+    var collection = document.getElementsByClassName("split-container");
+    const split = Array.prototype.findLast.call(collection, (e) => !e.classList.contains("split-del"));
+    // Add delete anim and delete element on anim end
     split.classList.add("split-del");
     split.addEventListener("animationend", () => split.remove());
 }
