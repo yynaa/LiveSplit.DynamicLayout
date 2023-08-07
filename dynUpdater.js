@@ -1,4 +1,4 @@
-﻿//SETTINGS
+//SETTINGS
 const websocketIP = "ws://127.0.0.1:8085"; //DO NOT CHANGE FOR NOW!!
 const framerate = 15; //framerate
 const splitsMaxAmount = 5; //maximum amount of splits shown on screen
@@ -78,24 +78,17 @@ splitsMaxLength = 0;
 splits = [];
 splitAnimInterval = null;
 
-function document_UpdateSplitLooks() {
-    var offset = 832.5 - splits.length * 50
-    document.getElementById("splits-container").style.top = offset + "px"
-
-    document.getElementById("splits-container").style.width = splitsMaxLength + 20 + "px";
-    document.getElementById("splits-container").style.left = 982.5 - splitsMaxLength - 20 + "px";
-}
-
-function createElem(tag, classes, content = undefined, style = undefined, children = []) {
+function createElem(tag, classes, content = undefined, post_hook = undefined, children = []) {
     const elem = document.createElement(tag);
     for (const c of classes) {
         elem.classList.add(c);
     }
     if (content) elem.innerHTML = content;
-    if (style) elem.style = style;
     for (const ch of children) {
         elem.appendChild(ch);
     }
+    console.log(post_hook);
+    if (post_hook) post_hook(elem);
     return elem;
 }
 
@@ -124,10 +117,10 @@ function document_AddSplit(inputname, time, delta, color) {
     var leftBG = length - 90
 
     const newSplit = createElem("div", ["split-container", "split-container-anim-slideIn"], undefined, undefined, [
-        createElem("div", ["split-background"], undefined, { "width": `${length}px` }, [
+        createElem("div", ["split-background"], undefined, undefined, [
             createElem("span", ["split-name"], name),
-            createElem("div", ["split-time-background"], undefined, { "left": `${leftBG}px` }, [
-                createElem("span", ["split-time"], delta, { "color": color })
+            createElem("div", ["split-time-background"], undefined, undefined, [
+                createElem("span", ["split-time"], delta, (e) => { console.log(e); e.style.color = color })
             ])
         ])
     ]);
