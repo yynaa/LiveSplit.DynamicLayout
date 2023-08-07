@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
     font-family: Roboto;
@@ -102,26 +102,6 @@ body {
     position: relative;
 }
 
-.split-container-anim-slideIn {
-    animation-duration: 1s;
-    animation-timing-function: ease-out;
-    animation-name: split_slideIn;
-}
-
-.splits-container-anim-slideIn {
-    position: relative;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
-    animation-name: splits_slideIn;
-}
-
-.splits-container-anim-slideOut {
-    position: relative;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
-    animation-name: splits_slideOut;
-}
-
 .split-background {
     position: relative;
     height: 45px;
@@ -160,6 +140,31 @@ body {
     border-top-right-radius: var(--corner-radius);
     position: relative;
     text-align: center;
+}
+
+.splits-container-anim-slideIn {
+    animation-duration: 1s;
+    animation-name: splits_slideIn;
+}
+
+.split-container-anim-slideIn {
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-name: split_slideIn;
+}
+
+.splits-container-anim-slideIn {
+    position: relative;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
+    animation-name: splits_slideIn;
+}
+
+.splits-container-anim-slideOut {
+    position: relative;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
+    animation-name: splits_slideOut;
 }
 
 @keyframes split_slideIn {
