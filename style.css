@@ -9,7 +9,9 @@ body {
 
     --corner-radius: 20px;
     --time-width: 90px;
-    --split-sep: 2.5px;
+    --split-sep: 5px;
+    --split-height: 45px;
+    --anim-duration: 1s;
 }
 
 #main {
@@ -102,7 +104,8 @@ body {
 
 .split-container {
     position: relative;
-    height: 45px;
+    height: var(--split-height);
+    transition: top linear 1s;
 }
 
 .split-background {
@@ -123,10 +126,7 @@ body {
     text-align: left;
     font-size: 18px;
     font-weight: 400;
-    z-index: -1;
-}
 
-.split-name {
     flex-grow: 1;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -140,7 +140,6 @@ body {
     text-align: center;
     font-size: 18px;
     font-weight: 400;
-    z-index: -1;
 }
 
 
@@ -154,57 +153,27 @@ body {
     flex-shrink: 0;
 }
 
-.splits-container-anim-slideIn {
-    animation-duration: 1s;
-    animation-name: splits_slideIn;
-}
 
-.split-container-anim-slideIn {
-    animation-duration: 1s;
+.split-container {
+    animation-duration: var(--anim-duration);
     animation-timing-function: ease-out;
     animation-name: split_slideIn;
+    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
+    animation-iteration-count: 1;
 }
 
-.splits-container-anim-slideIn {
-    position: relative;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
-    animation-name: splits_slideIn;
-}
-
-.splits-container-anim-slideOut {
-    position: relative;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
-    animation-name: splits_slideOut;
+#splits-container {
+    transition: all ease-in-out 1s;
 }
 
 @keyframes split_slideIn {
     from {
+        height: 0;
         left: 100%;
     }
 
     to {
+        height: var(--split-height);
         left: 0px;
-    }
-}
-
-@keyframes splits_slideIn {
-    from {
-        margin-top: 50px;
-    }
-
-    to {
-        margin-top: 0px;
-    }
-}
-
-@keyframes splits_slideOut {
-    from {
-        margin-top: -50px;
-    }
-
-    to {
-        margin-top: 0px;
     }
 }

@@ -24,6 +24,7 @@ websocket.addEventListener("close", (event) => {
 websocket.addEventListener("message", (event) => {
     var message = event.data;
     var messageArray = message.split(sMC);
+    console.log(messageArray);
 
     if (messageArray.length > 0) {
         switch (messageArray[0]) {
@@ -86,7 +87,6 @@ function createElem(tag, classes, content = undefined, post_hook = undefined, ch
     for (const ch of children) {
         elem.appendChild(ch);
     }
-    console.log(post_hook);
     if (post_hook) post_hook(elem);
     return elem;
 }
@@ -107,11 +107,11 @@ function document_AddSplit(inputname, time, delta, color) {
         name = name.substring(name.indexOf("{") + 1, name.indexOf("}"))
     }
 
-    const newSplit = createElem("div", ["split-container", "split-container-anim-slideIn"], undefined, undefined, [
+    const newSplit = createElem("div", ["split-container"], undefined, undefined, [
         createElem("div", ["split-background"], undefined, undefined, [
             createElem("span", ["split-name"], name),
             createElem("div", ["split-time-background"], undefined, undefined, [
-                createElem("span", ["split-time"], delta, (e) => { console.log(e); e.style.color = color })
+                createElem("span", ["split-time"], delta, (e) => e.style.color = color)
             ])
         ])
     ]);
@@ -121,45 +121,24 @@ function document_AddSplit(inputname, time, delta, color) {
     document.getElementById("splits-container").appendChild(newSplit);
     splits[splits.length] = [name, time, delta, color];
 
-    clearInterval(splitAnimInterval)
-    splitAnimInterval = setInterval(anim_ClearAllAnims, 1000)
-
     document.getElementById("splits-container").classList.add("splits-container-anim-slideIn");
 }
 
 function document_ResetSplits() {
-    clearInterval(splitAnimInterval)
-    anim_ClearAllAnims()
     document.getElementById("splits-container").innerHTML = ""
     splits = []
 }
 
 function document_UndoSplit() {
-    clearInterval(splitAnimInterval);
-    anim_ClearAllAnims();
-
     splits.pop();
 
     var collection = document.getElementsByClassName("split-container")
     collection.item(collection.length - 1).remove();
 
-    clearInterval(splitAnimInterval)
-    splitAnimInterval = setInterval(anim_ClearAllAnims, 1000)
-
     document.getElementById("splits-container").classList.add("splits-container-anim-slideOut");
 }
 
 function anim_Filter(value) { return value == "split-container-anim-slideIn"; }
-
-function anim_ClearAllAnims() {
-    clearInterval(splitAnimInterval)
-    var collection = document.getElementsByClassName("split-container-anim-slideIn")
-    Array.from(collection).forEach(function (element) {
-        element.classList.remove("split-container-anim-slideIn");
-    });
-    document.getElementById("splits-container").classList.remove("splits-container-anim-slideIn");
-    document.getElementById("splits-container").classList.remove("splits-container-anim-slideOut");
-}
 
 //MISC STUFF
 
