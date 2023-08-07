@@ -2,29 +2,36 @@
 
 body {
     font-family: Roboto;
+    color: white;
     --corner-radius: 20px;
+    --time-width: 90px;
 }
+
+#main {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+}
+
+#times {
+    position: relative;
+}
+
 
 #timer-background {
     width: 180px;
     height: 100px;
     line-height: 100px;
     background: radial-gradient(circle, rgba(30, 30, 30, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
-    color: white;
     border-top-left-radius: var(--corner-radius);
-    position: fixed;
-    left: 800px;
-    top: 835px;
-    z-index: 0;
 }
 
 #timer,
 #timer-ms {
-    width: 180px;
-    height: 100px;
-    position: fixed;
+    width: 100%;
+    height: 100%;
     font-weight: 300;
-    z-index: 1;
 }
 
 #timer {
@@ -37,52 +44,39 @@ body {
     line-height: 30px;
     font-size: 20px;
     text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 #info-background {
-    position: fixed;
     width: 180px;
     height: 45px;
+    display: flex;
     line-height: 45px;
     background: radial-gradient(circle, rgba(30, 30, 30, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
-    color: white;
     border-bottom-left-radius: var(--corner-radius);
     border-bottom-right-radius: var(--corner-radius);
-    left: 800px;
-    top: 935px;
-    z-index: 0;
 }
 
 #info {
-    position: fixed;
     font-size: 18px;
     margin-left: 15px;
-    z-index: 1;
+    flex-grow: 1;
 }
 
 #infotime-background {
-    width: 90px;
+    width: var(--time-width);
     height: 45px;
     line-height: 45px;
     background-color: rgba(0, 0, 0, 0.3);
-    color: white;
     border-bottom-right-radius: var(--corner-radius);
-    position: fixed;
-    left: 890px;
-    top: 935px;
     text-align: center;
-    z-index: 1;
 }
 
 #infotime {
-    position: fixed;
-    left: 890px;
-    top: 935px;
-    width: 90px;
-    text-align: center;
     font-size: 18px;
     font-weight: 400;
-    z-index: 0;
 }
 
 .splits-container-anim-slideIn {
@@ -159,7 +153,6 @@ body {
 .split-time-background {
     line-height: 45px;
     background-color: rgba(0, 0, 0, 0.3);
-    color: white;
     border-top-right-radius: var(--corner-radius);
     position: relative;
     text-align: center;
