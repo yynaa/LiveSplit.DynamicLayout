@@ -3,6 +3,10 @@
 body {
     font-family: Roboto;
     color: white;
+
+    /* Use to limit max width of splits */
+    --max-width: 500px;
+
     --corner-radius: 20px;
     --time-width: 90px;
     --split-sep: 2.5px;
@@ -13,6 +17,7 @@ body {
     right: 0;
     bottom: 0;
     margin: 20px;
+    max-width: var(--max-width);
 
     display: flex;
     flex-direction: column-reverse;
@@ -123,6 +128,11 @@ body {
 
 .split-name {
     flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    overflow: hidden;
 }
 
 .split-time {
@@ -141,6 +151,7 @@ body {
     border-top-right-radius: var(--corner-radius);
     position: relative;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .splits-container-anim-slideIn {
