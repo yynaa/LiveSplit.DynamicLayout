@@ -153,10 +153,9 @@ body {
     flex-shrink: 0;
 }
 
-
+/* Animation stuff */
 .split-container {
     animation-duration: var(--anim-duration);
-    animation-timing-function: ease-out;
     animation-name: split_slideIn;
     animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
     animation-iteration-count: 1;
@@ -164,6 +163,10 @@ body {
 
 #splits-container {
     transition: all ease-in-out 1s;
+}
+
+.split-del {
+    animation-name: split_slideOut;
 }
 
 @keyframes split_slideIn {
@@ -175,5 +178,17 @@ body {
     to {
         height: var(--split-height);
         left: 0px;
+    }
+}
+
+@keyframes split_slideOut {
+    from {
+        height: var(--split-height);
+        left: 0px;
+    }
+
+    to {
+        height: 0;
+        left: 100%;
     }
 }

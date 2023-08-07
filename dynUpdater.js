@@ -120,8 +120,6 @@ function document_AddSplit(inputname, time, delta, color) {
 
     document.getElementById("splits-container").appendChild(newSplit);
     splits[splits.length] = [name, time, delta, color];
-
-    document.getElementById("splits-container").classList.add("splits-container-anim-slideIn");
 }
 
 function document_ResetSplits() {
@@ -133,9 +131,9 @@ function document_UndoSplit() {
     splits.pop();
 
     var collection = document.getElementsByClassName("split-container")
-    collection.item(collection.length - 1).remove();
-
-    document.getElementById("splits-container").classList.add("splits-container-anim-slideOut");
+    const split = collection.item(collection.length - 1);
+    split.classList.add("split-del");
+    split.addEventListener("animationend", () => split.remove());
 }
 
 function anim_Filter(value) { return value == "split-container-anim-slideIn"; }
