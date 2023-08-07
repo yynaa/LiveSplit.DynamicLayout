@@ -9,7 +9,7 @@ body {
     width: 180px;
     height: 100px;
     line-height: 100px;
-    background: radial-gradient(circle, rgba(30,30,30,0.95) 0%, rgba(0,0,0,0.95) 100%);
+    background: radial-gradient(circle, rgba(30, 30, 30, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
     color: white;
     border-top-left-radius: var(--corner-radius);
     position: fixed;
@@ -18,26 +18,25 @@ body {
     z-index: 0;
 }
 
-#timer {
-    width: 180px;
-    height: 100px;
-    line-height: 100px;
-    position: fixed;
-    font-weight: 300;
-    font-size: 50px;
-    text-align: center;
-    z-index: 1;
-}
-
+#timer,
 #timer-ms {
     width: 180px;
     height: 100px;
-    line-height: 30px;
     position: fixed;
     font-weight: 300;
+    z-index: 1;
+}
+
+#timer {
+    line-height: 100px;
+    font-size: 50px;
+    text-align: center;
+}
+
+#timer-ms {
+    line-height: 30px;
     font-size: 20px;
     text-align: right;
-    z-index: 1;
 }
 
 #info-background {
@@ -45,7 +44,7 @@ body {
     width: 180px;
     height: 45px;
     line-height: 45px;
-    background: radial-gradient(circle, rgba(30,30,30,0.7) 0%, rgba(0,0,0,0.7) 100%);
+    background: radial-gradient(circle, rgba(30, 30, 30, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
     color: white;
     border-bottom-left-radius: var(--corner-radius);
     border-bottom-right-radius: var(--corner-radius);
@@ -65,7 +64,7 @@ body {
     width: 90px;
     height: 45px;
     line-height: 45px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     color: white;
     border-bottom-right-radius: var(--corner-radius);
     position: fixed;
@@ -106,7 +105,7 @@ body {
     position: relative;
 }
 
-.split-container-anim-slideIn{
+.split-container-anim-slideIn {
     animation-duration: 1s;
     animation-timing-function: ease-out;
     animation-name: split_slideIn;
@@ -115,14 +114,14 @@ body {
 .splits-container-anim-slideIn {
     position: relative;
     animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0,0.5,0,1);
+    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
     animation-name: splits_slideIn;
 }
 
 .splits-container-anim-slideOut {
     position: relative;
     animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0,0.5,0,1);
+    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
     animation-name: splits_slideOut;
 }
 
@@ -133,19 +132,20 @@ body {
     text-align: left;
     margin: 2.5px;
     z-index: -3;
-    background: radial-gradient(circle, rgba(30,30,30,0.7) 0%, rgba(0,0,0,0.7) 100%);
+    background: radial-gradient(circle, rgba(30, 30, 30, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: var(--corner-radius);
     border-top-left-radius: var(--corner-radius);
     border-top-right-radius: var(--corner-radius);
+
+    display: flex;
+    flex-direction: column;
 }
 
-.split-name {
-    width: 400px;
-    height: 45px;
+.split-name,
+.split-time {
+    margin: 0 15px;
     line-height: 45px;
-    margin-left: 15px;
-    margin-right: 15px;
     text-align: left;
     font-size: 18px;
     font-weight: 400;
@@ -153,35 +153,20 @@ body {
 }
 
 .split-time-background {
-    width: 90px;
-    height: 45px;
     line-height: 45px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     color: white;
     border-top-right-radius: var(--corner-radius);
     position: relative;
-    bottom: 45px;
     text-align: center;
     z-index: -2;
-}
-
-.split-time {
-    position: relative;
-    width: 400px;
-    height: 45px;
-    line-height: 45px;
-    margin-left: 15px;
-    margin-right: 15px;
-    text-align: left;
-    font-size: 18px;
-    font-weight: 400;
-    z-index: -1;
 }
 
 @keyframes split_slideIn {
     from {
         left: 100%;
     }
+
     to {
         left: 0px;
     }
