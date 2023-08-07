@@ -76,8 +76,9 @@ function document_UpdateTimer(timer, ms, color) {
 }
 
 splits = [];
-splitAnimInterval = null;
 
+// Helper function to create nested div structure
+// Many JS frameworks have similar, but keeping no dependencies
 function createElem(tag, classes, content = undefined, post_hook = undefined, children = []) {
     const elem = document.createElement(tag);
     for (const c of classes) {
@@ -136,16 +137,4 @@ function document_UndoSplit() {
     // Add delete anim and delete element on anim end
     split.classList.add("split-del");
     split.addEventListener("animationend", () => split.remove());
-}
-
-function anim_Filter(value) { return value == "split-container-anim-slideIn"; }
-
-//MISC STUFF
-
-function displayTextWidth(text, font) {
-    let canvas = displayTextWidth.canvas || (displayTextWidth.canvas = document.createElement("canvas"));
-    let context = canvas.getContext("2d");
-    context.font = font;
-    let metrics = context.measureText(text);
-    return metrics.width;
 }
