@@ -12,6 +12,11 @@ body {
     right: 0;
     bottom: 0;
     margin: 20px;
+
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 20px;
 }
 
 #times {
@@ -25,6 +30,7 @@ body {
     line-height: 100px;
     background: radial-gradient(circle, rgba(30, 30, 30, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
     border-top-left-radius: var(--corner-radius);
+    position: relative;
 }
 
 #timer,
@@ -85,13 +91,10 @@ body {
 }
 
 #splits-container {
-    position: fixed;
-    bottom: 250px;
-    right: 0px;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: flex-end;
     overflow: hidden;
 }
 
@@ -152,11 +155,11 @@ body {
 
 .split-time-background {
     line-height: 45px;
+    width: var(--time-width);
     background-color: rgba(0, 0, 0, 0.3);
     border-top-right-radius: var(--corner-radius);
     position: relative;
     text-align: center;
-    z-index: -2;
 }
 
 @keyframes split_slideIn {
