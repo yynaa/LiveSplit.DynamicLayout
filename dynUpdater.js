@@ -1,4 +1,4 @@
-//SETTINGS
+﻿//SETTINGS
 const websocketIP = "ws://127.0.0.1:8085"; //DO NOT CHANGE FOR NOW!!
 const framerate = 15; //framerate
 const splitsMaxAmount = 5; //maximum amount of splits shown on screen
@@ -74,7 +74,6 @@ function document_UpdateTimer(timer, ms, color) {
     element.style.color = color;
 }
 
-splitsMaxLength = 0;
 splits = [];
 splitAnimInterval = null;
 
@@ -98,23 +97,15 @@ function document_AddSplit(inputname, time, delta, color) {
         collection.item(0).remove();
         splits.shift();
     }
-    var subsplitOffset = 0
 
     var name = inputname
-
-    //subsplit detection
-    if (name[0] == "-") {
-        name = name.substring(1);
-        subsplitOffset = 20
-    }
+    const subsplit = name[0] == "-";
+    if (subsplit) name = name.substring(1);
 
     //section name detection
     if (name.includes("{")) {
         name = name.substring(name.indexOf("{") + 1, name.indexOf("}"))
     }
-
-    var length = 90 + 15 * 2 + displayTextWidth(name, "400 18px Roboto");
-    var leftBG = length - 90
 
     const newSplit = createElem("div", ["split-container", "split-container-anim-slideIn"], undefined, undefined, [
         createElem("div", ["split-background"], undefined, undefined, [
@@ -125,28 +116,15 @@ function document_AddSplit(inputname, time, delta, color) {
         ])
     ]);
     //subsplit detection
-    if (name[0] == "-") {
-        name = name.substring(1);
-        newSplit.classList.add("subsplit");
-    }
+    if (subsplit) newSplit.classList.add("subsplit");
 
     document.getElementById("splits-container").appendChild(newSplit);
-
-    if (length > splitsMaxLength) { splitsMaxLength = length; }
-    splits[splits.length] = [name, time, delta, color];
-
-    document.getElementById("splits-container").classList.add("splits-container-anim-slideIn");
-
-
-    if (length > splitsMaxLength) { splitsMaxLength = length; }
     splits[splits.length] = [name, time, delta, color];
 
     clearInterval(splitAnimInterval)
     splitAnimInterval = setInterval(anim_ClearAllAnims, 1000)
 
     document.getElementById("splits-container").classList.add("splits-container-anim-slideIn");
-
-    document_UpdateSplitLooks();
 }
 
 function document_ResetSplits() {
@@ -154,7 +132,6 @@ function document_ResetSplits() {
     anim_ClearAllAnims()
     document.getElementById("splits-container").innerHTML = ""
     splits = []
-    splitsMaxLength = 0;
 }
 
 function document_UndoSplit() {
@@ -163,12 +140,6 @@ function document_UndoSplit() {
 
     splits.pop();
 
-    splitsMaxLength = 0;
-    var collection = document.getElementsByClassName("split-name")
-    Array.from(collection).forEach(function (element) {
-        var length = 90 + 15 * 2 + displayTextWidth(element.innerHTML, "400 18px Roboto");
-        if (length > splitsMaxLength) { splitsMaxLength = length; }
-    });
     var collection = document.getElementsByClassName("split-container")
     collection.item(collection.length - 1).remove();
 
@@ -176,8 +147,6 @@ function document_UndoSplit() {
     splitAnimInterval = setInterval(anim_ClearAllAnims, 1000)
 
     document.getElementById("splits-container").classList.add("splits-container-anim-slideOut");
-
-    document_UpdateSplitLooks();
 }
 
 function anim_Filter(value) { return value == "split-container-anim-slideIn"; }

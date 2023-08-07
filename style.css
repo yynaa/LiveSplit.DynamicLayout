@@ -92,11 +92,11 @@ body {
 
 #splits-container {
     position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 980px;
+    bottom: 250px;
+    right: 0px;
+
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
 }
@@ -139,7 +139,7 @@ body {
     border-top-right-radius: var(--corner-radius);
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .split-name,
@@ -150,6 +150,10 @@ body {
     font-size: 18px;
     font-weight: 400;
     z-index: -1;
+}
+
+.split-name {
+    flex-grow: 1;
 }
 
 .split-time-background {
