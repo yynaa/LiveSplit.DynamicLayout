@@ -9,7 +9,7 @@ body {
 
     --corner-radius: 20px;
     --time-width: 90px;
-    --split-sep: 5px;
+    --split-mar: 5px;
     --split-height: 45px;
     --anim-duration: 1s;
 }
@@ -24,11 +24,11 @@ body {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-end;
-    gap: var(--split-sep);
 }
 
 #times {
     position: relative;
+    margin-top: var(--split-mar);
 }
 
 
@@ -105,7 +105,7 @@ body {
 .split-container {
     position: relative;
     height: var(--split-height);
-    transition: top linear 1s;
+    margin-top: var(--split-mar);
 }
 
 .split-background {
@@ -161,23 +161,22 @@ body {
     animation-iteration-count: 1;
 }
 
-#splits-container {
-    transition: all ease-in-out 1s;
-}
-
 .split-del {
     animation-name: split_slideOut;
+    animation-timing-function: cubic-bezier(0.5, 1, 0, 1);
 }
 
 @keyframes split_slideIn {
     from {
         height: 0;
         left: 100%;
+        margin-top: 0;
     }
 
     to {
         height: var(--split-height);
         left: 0px;
+        margin-top: var(--split-mar);
     }
 }
 
@@ -185,10 +184,12 @@ body {
     from {
         height: var(--split-height);
         left: 0px;
+        margin-top: var(--split-mar);
     }
 
     to {
         height: 0;
         left: 100%;
+        margin-top: 0;
     }
 }
