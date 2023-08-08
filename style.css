@@ -156,28 +156,20 @@ body {
 
 @keyframes split_slideIn {
     from {
-        height: 0;
-        left: 100%;
-        margin-top: 0;
+        transform: translate(100%, 100%);
     }
 
     to {
-        height: var(--split-height);
-        left: 0px;
-        margin-top: var(--split-mar);
+        transform: translate(0%, 0%);
     }
 }
 
 @keyframes split_slideOut {
     from {
-        height: var(--split-height);
-        left: 0px;
-        margin-top: var(--split-mar);
+        transform: translate(0%, 0%);
     }
 
     to {
-        height: 0;
-        left: 100%;
-        margin-top: 0;
+        transform: translate(100%, 100%);
     }
 }
