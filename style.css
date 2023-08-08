@@ -12,6 +12,7 @@ body {
     --time-width: 90px;
     --split-mar: 5px;
     --split-height: 45px;
+    --entry-pad: 20px;
     --anim-duration: 1s;
 }
 
@@ -95,11 +96,6 @@ body {
 }
 
 #splits-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    gap: var(--split-sep);
     overflow: hidden;
 }
 
@@ -107,29 +103,27 @@ body {
     position: relative;
     height: var(--split-height);
     margin-top: var(--split-mar);
-}
-
-.split-background {
-    position: relative;
-    text-align: left;
-    z-index: -3;
-    background: radial-gradient(circle, rgba(30, 30, 30, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
-    border-radius: var(--corner-radius);
-    border-bottom-right-radius: 0px;
-
-    display: flex;
-    flex-direction: row;
     overflow: hidden;
 }
 
+.split-container td:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #3335;
+}
+
+.split-container td:last-child {
+    border-top-right-radius: 20px;
+    background-color: #3335;
+}
+
 .split-name {
-    margin: 0 15px;
+    padding: 0 var(--entry-pad);
     line-height: 45px;
     text-align: left;
     font-size: 18px;
     font-weight: 400;
 
-    flex-grow: 1;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -139,25 +133,12 @@ body {
 
 .split-time,
 .split-delta {
+    padding: 0 var(--entry-pad);
     line-height: 45px;
     text-align: center;
     font-size: 18px;
     font-weight: 400;
-}
-
-
-.split-time-background,
-.split-delta-background {
-    line-height: 45px;
-    width: var(--time-width);
-    position: relative;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.split-delta-background {
-    width: var(--delta-width);
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #333d;
 }
 
 /* Animation stuff */
