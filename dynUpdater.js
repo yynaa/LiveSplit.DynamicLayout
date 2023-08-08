@@ -1,6 +1,6 @@
 ﻿//SETTINGS
 const websocketIP = "ws://127.0.0.1:8085"; //DO NOT CHANGE FOR NOW!!
-const framerate = 15; //framerate
+const framerate = 0.1; //framerate
 const splitsMaxAmount = 5; //maximum amount of splits shown on screen
 
 //DO NOT EDIT
