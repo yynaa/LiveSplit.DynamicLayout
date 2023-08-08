@@ -223,7 +223,7 @@ namespace LiveSplit.UI.Components
             }
             else
             {
-                s += time.ToString(@"h\:mm");
+                s += time.ToString(@"h\:mm\:ss");
             }
             return s;
         }
