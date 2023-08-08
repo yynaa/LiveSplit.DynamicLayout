@@ -8,11 +8,9 @@ body {
     --max-width: 500px;
 
     --corner-radius: 20px;
-    --delta-width: 75px;
-    --time-width: 90px;
     --split-mar: 5px;
     --split-height: 45px;
-    --entry-pad: 20px;
+    --entry-pad: 15px;
     --anim-duration: 1s;
 }
 
@@ -82,7 +80,7 @@ body {
 }
 
 #infotime-background {
-    width: var(--time-width);
+    width: 50%;
     height: 45px;
     line-height: 45px;
     background-color: rgba(0, 0, 0, 0.3);
@@ -115,15 +113,18 @@ body {
 .split-container div:first-child {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    background-color: #3335;
+    background-color: #333b;
 }
 
 .split-container div:last-child {
     border-top-right-radius: 20px;
-    background-color: #3335;
+    background-color: #333b;
 }
 
 .split-name {
+    width: fit-content;
+    margin-left: auto;
+
     padding: 0 var(--entry-pad);
     line-height: 45px;
     text-align: left;
@@ -144,7 +145,7 @@ body {
     text-align: center;
     font-size: 18px;
     font-weight: 400;
-    background-color: #333d;
+    background-color: #333e;
 }
 
 /* Animation stuff */
