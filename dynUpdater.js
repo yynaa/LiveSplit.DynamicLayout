@@ -108,10 +108,10 @@ function document_AddSplit(inputname, time, delta, color) {
         name = name.substring(name.indexOf("{") + 1, name.indexOf("}"))
     }
 
-    const newSplit = createElem("tr", ["split-container", "split-background"], undefined, undefined, [
-        createElem("td", ["split-name"], name),
-        createElem("td", ["split-delta-background", "split-delta"], delta, (e) => e.style.color = color),
-        createElem("td", ["split-time-background", "split-time"], time)
+    const newSplit = createElem("div", ["split-container", "split-background"], undefined, undefined, [
+        createElem("div", ["split-name"], name),
+        createElem("div", ["split-delta-background", "split-delta"], delta, (e) => e.style.color = color),
+        createElem("div", ["split-time-background", "split-time"], time)
     ]);
     //subsplit detection
     if (subsplit) newSplit.classList.add("subsplit");

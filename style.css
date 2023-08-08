@@ -97,6 +97,8 @@ body {
 
 #splits-container {
     overflow: hidden;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
 }
 
 .split-container {
@@ -104,15 +106,19 @@ body {
     height: var(--split-height);
     margin-top: var(--split-mar);
     overflow: hidden;
+
+    display: grid;
+    grid-column: span 3;
+    grid-template-columns: subgrid;
 }
 
-.split-container td:first-child {
+.split-container div:first-child {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     background-color: #3335;
 }
 
-.split-container td:last-child {
+.split-container div:last-child {
     border-top-right-radius: 20px;
     background-color: #3335;
 }
@@ -156,20 +162,28 @@ body {
 
 @keyframes split_slideIn {
     from {
-        transform: translate(100%, 100%);
+        height: 0;
+        left: 100%;
+        margin-top: 0;
     }
 
     to {
-        transform: translate(0%, 0%);
+        height: var(--split-height);
+        left: 0px;
+        margin-top: var(--split-mar);
     }
 }
 
 @keyframes split_slideOut {
     from {
-        transform: translate(0%, 0%);
+        height: var(--split-height);
+        left: 0px;
+        margin-top: var(--split-mar);
     }
 
     to {
-        transform: translate(100%, 100%);
+        height: 0;
+        left: 100%;
+        margin-top: 0;
     }
 }
