@@ -111,8 +111,11 @@ function document_AddSplit(inputname, time, delta, color) {
     const newSplit = createElem("div", ["split-container"], undefined, undefined, [
         createElem("div", ["split-background"], undefined, undefined, [
             createElem("span", ["split-name"], name),
+            createElem("div", ["split-delta-background"], undefined, undefined, [
+                createElem("span", ["split-delta"], delta, (e) => e.style.color = color)
+            ]),
             createElem("div", ["split-time-background"], undefined, undefined, [
-                createElem("span", ["split-time"], delta, (e) => e.style.color = color)
+                createElem("span", ["split-time"], time)
             ])
         ])
     ]);

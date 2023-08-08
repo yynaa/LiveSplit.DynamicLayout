@@ -8,6 +8,7 @@ body {
     --max-width: 500px;
 
     --corner-radius: 20px;
+    --delta-width: 75px;
     --time-width: 90px;
     --split-mar: 5px;
     --split-height: 45px;
@@ -118,6 +119,7 @@ body {
 
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 .split-name {
@@ -135,7 +137,8 @@ body {
     overflow: hidden;
 }
 
-.split-time {
+.split-time,
+.split-delta {
     line-height: 45px;
     text-align: center;
     font-size: 18px;
@@ -143,14 +146,18 @@ body {
 }
 
 
-.split-time-background {
+.split-time-background,
+.split-delta-background {
     line-height: 45px;
     width: var(--time-width);
-    background-color: rgba(0, 0, 0, 0.3);
-    border-top-right-radius: var(--corner-radius);
     position: relative;
     text-align: center;
     flex-shrink: 0;
+}
+
+.split-delta-background {
+    width: var(--delta-width);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Animation stuff */
