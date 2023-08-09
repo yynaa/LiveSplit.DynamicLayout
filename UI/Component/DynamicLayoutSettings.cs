@@ -27,7 +27,12 @@ namespace LiveSplit.UI.Components
 		public string PortString
 		{
 			get { return Port.ToString(); }
-			set { Port = ushort.Parse(value); }
+			set {
+				Port = ushort.Parse(value);
+				curlabel.Text = "Current: " + PortString;
+				txtPort.Text = PortString;
+				restartServer();
+			}
 		}
 
 		private Action restartServer;
@@ -47,8 +52,9 @@ namespace LiveSplit.UI.Components
 
         public void SetSettings(XmlNode node)
         {
-            
-        }
+			var element = (XmlElement)node;
+			PortString = SettingsHelper.ParseString(element["Port"]);
+		}
 
         public XmlNode GetSettings(XmlDocument document)
         {
@@ -70,8 +76,6 @@ namespace LiveSplit.UI.Components
 		private void portbtn_Click(object sender, EventArgs e)
 		{
 			PortString = txtPort.Text;
-			curlabel.Text = "Current: " + PortString;
-			restartServer();
 		}
 	}
 }
