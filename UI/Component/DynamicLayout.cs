@@ -1,4 +1,4 @@
-﻿using LiveSplit.Model;
+using LiveSplit.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,7 +31,7 @@ namespace LiveSplit.UI.Components
         //CODE HERE
 
         private WebSocketServer server;
-        private string serverIP = "ws://127.0.0.1:8085";
+        private string serverIP = "ws://0.0.0.0";
 
         private string _sMC = "█"; //split message character
         private char _sMCchar = '█'; 
@@ -50,7 +50,7 @@ namespace LiveSplit.UI.Components
 
             state = newState;
 
-            server = new WebSocketServer(serverIP);
+            server = new WebSocketServer(serverIP + ":" + Settings.Port);
             server.Start(newsocket =>
             {
                 socket = newsocket;
