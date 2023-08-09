@@ -40,7 +40,8 @@ namespace LiveSplit.UI.Components
         private List<IWebSocketConnection> sockets;
 
         public DynamicLayout(LiveSplitState newState)
-        { 
+        {
+			sockets = new List<IWebSocketConnection>();
             Settings = new DynamicLayoutSettings(restartServer);
 
             newState.OnSplit += state_OnSplit;

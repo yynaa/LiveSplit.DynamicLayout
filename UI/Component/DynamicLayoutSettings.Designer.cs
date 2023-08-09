@@ -29,12 +29,12 @@ namespace LiveSplit.UI.Components
         private void InitializeComponent()
         {
             this.topLevelLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.iplist = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.curlabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.iplist = new System.Windows.Forms.Label();
             this.portbtn = new System.Windows.Forms.Button();
-            this.curlabel = new System.Windows.Forms.Label();
             this.topLevelLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,31 +59,17 @@ namespace LiveSplit.UI.Components
             this.topLevelLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.topLevelLayoutPanel.Size = new System.Drawing.Size(279, 310);
             this.topLevelLayoutPanel.TabIndex = 0;
-            this.topLevelLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.topLevelLayoutPanel_Paint);
             // 
-            // iplist
+            // curlabel
             // 
-            this.iplist.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.iplist.AutoSize = true;
-            this.iplist.Location = new System.Drawing.Point(83, 71);
-            this.iplist.Name = "iplist";
-            this.iplist.Size = new System.Drawing.Size(58, 13);
-            this.iplist.TabIndex = 3;
-            this.iplist.Text = "IP Address";
-            this.iplist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iplist.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 71);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Local IP(s):";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
+            this.curlabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.curlabel.AutoSize = true;
+            this.curlabel.Location = new System.Drawing.Point(83, 40);
+            this.curlabel.Name = "curlabel";
+            this.curlabel.Size = new System.Drawing.Size(67, 13);
+            this.curlabel.TabIndex = 5;
+            this.curlabel.Text = "Current: xxxx";
+            this.curlabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -104,6 +90,28 @@ namespace LiveSplit.UI.Components
             this.txtPort.Size = new System.Drawing.Size(75, 20);
             this.txtPort.TabIndex = 1;
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 71);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Local IP(s):";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // iplist
+            // 
+            this.iplist.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.iplist.AutoSize = true;
+            this.iplist.Location = new System.Drawing.Point(83, 71);
+            this.iplist.Name = "iplist";
+            this.iplist.Size = new System.Drawing.Size(58, 13);
+            this.iplist.TabIndex = 3;
+            this.iplist.Text = "IP Address";
+            this.iplist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // portbtn
             // 
             this.portbtn.Location = new System.Drawing.Point(3, 34);
@@ -113,17 +121,6 @@ namespace LiveSplit.UI.Components
             this.portbtn.Text = "Update Server";
             this.portbtn.UseVisualStyleBackColor = true;
             this.portbtn.Click += new System.EventHandler(this.portbtn_Click);
-            // 
-            // curlabel
-            // 
-            this.curlabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.curlabel.AutoSize = true;
-            this.curlabel.Location = new System.Drawing.Point(83, 40);
-            this.curlabel.Name = "curlabel";
-            this.curlabel.Size = new System.Drawing.Size(67, 13);
-            this.curlabel.TabIndex = 5;
-            this.curlabel.Text = "Current: xxxx";
-            this.curlabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DynamicLayoutSettings
             // 
