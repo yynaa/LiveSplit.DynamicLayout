@@ -1,4 +1,4 @@
-﻿using LiveSplit.Model;
+using LiveSplit.Model;
 using System;
 
 namespace LiveSplit.UI.Components
@@ -19,6 +19,6 @@ namespace LiveSplit.UI.Components
 
         public string XMLURL => UpdateURL + "";
 
-        public Version Version => Version.Parse("1.0.2");
+        public Version Version => Version.Parse("1.1.0");
     }
 }
