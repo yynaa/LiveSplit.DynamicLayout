@@ -37,7 +37,7 @@ namespace LiveSplit.UI.Components
         private char _sMCchar = '█'; 
 
         private LiveSplitState state;
-        private IWebSocketConnection socket;
+        private List<IWebSocketConnection> sockets;
 
         public DynamicLayout(LiveSplitState newState)
         { 
@@ -56,8 +56,9 @@ namespace LiveSplit.UI.Components
 			server = new WebSocketServer(serverIP + ":" + Settings.Port);
 			server.Start(newsocket =>
 			{
-				socket = newsocket;
+				sockets.Add(newsocket);
 				newsocket.OnMessage = message => OnMessage(newsocket, message);
+				newsocket.OnClose = () => sockets.Remove(newsocket);
 			});
 		}
 
@@ -97,7 +98,7 @@ namespace LiveSplit.UI.Components
 
         public void state_OnSplit(object sender, EventArgs e)
         {
-            socket.Send("split" + _sMC + formatSplitSend());
+            sockets.ForEach(s => s.Send("split" + _sMC + formatSplitSend()));
         }
 
         public string formatSplitSend() {
@@ -118,24 +119,25 @@ namespace LiveSplit.UI.Components
         }
 
         public void state_OnSkipSplit(object sender, EventArgs e)
-        {
-            socket.Send("split"
-                + _sMC + state.Run[state.CurrentSplitIndex - 1].Name
-                + _sMC + "-"
-                + _sMC + "-"
-                + _sMC + HexConverter(state.Layout.Settings.NotRunningColor)
-            );
+		{
+			string msg = "split"
+				+ _sMC + state.Run[state.CurrentSplitIndex - 1].Name
+				+ _sMC + "-"
+				+ _sMC + "-"
+				+ _sMC + HexConverter(state.Layout.Settings.NotRunningColor);
+
+			sockets.ForEach(s => s.Send(msg));
         }
 
         public void state_OnUndoSplit(object sender, EventArgs e)
-        {
-            socket.Send("undo");
-        }
+		{
+			sockets.ForEach(s => s.Send("undo"));
+		}
 
         public void state_OnReset(object sender, TimerPhase e)
         {
-            socket.Send("reset");
-        }
+			sockets.ForEach(s => s.Send("reset"));
+		}
 
         //RESPONSES
 
