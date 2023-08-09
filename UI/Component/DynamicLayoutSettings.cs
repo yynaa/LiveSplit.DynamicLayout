@@ -10,7 +10,7 @@ namespace LiveSplit.UI.Components
     public partial class DynamicLayoutSettings : UserControl
     {
         public LayoutMode Mode { get; set; }
-
+		
 		public ushort Port { get; set; }
 
 		public string LocalIP { get; set; }
@@ -30,14 +30,17 @@ namespace LiveSplit.UI.Components
 			set { Port = ushort.Parse(value); }
 		}
 
-		public DynamicLayoutSettings()
+		private Action restartServer;
+
+		public DynamicLayoutSettings(Action restartServer)
         {
 			InitializeComponent();
 			Port = 8085;
 			LocalIP = GetIP();
 			iplist.Text = LocalIP;
+			this.restartServer = restartServer;
 
-			txtPort.DataBindings.Add("Text", this, "PortString", false, DataSourceUpdateMode.OnPropertyChanged);
+			// txtPort.DataBindings.Add("Text", this, "PortString", false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
         public void SetSettings(XmlNode node)
@@ -61,5 +64,32 @@ namespace LiveSplit.UI.Components
         {
             return SettingsHelper.CreateSetting(document, parent, "Port", PortString);
         }
+
+		private void topLevelLayoutPanel_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void label2_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label2_Click_1(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label3_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void portbtn_Click(object sender, EventArgs e)
+		{
+			PortString = txtPort.Text;
+			curlabel.Text = "Current: " + PortString;
+			restartServer();
+		}
 	}
 }

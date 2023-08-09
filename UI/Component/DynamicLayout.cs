@@ -41,7 +41,7 @@ namespace LiveSplit.UI.Components
 
         public DynamicLayout(LiveSplitState newState)
         { 
-            Settings = new DynamicLayoutSettings();
+            Settings = new DynamicLayoutSettings(restartServer);
 
             newState.OnSplit += state_OnSplit;
             newState.OnSkipSplit += state_OnSkipSplit;
@@ -49,14 +49,22 @@ namespace LiveSplit.UI.Components
             newState.OnReset += state_OnReset;
 
             state = newState;
-
-            server = new WebSocketServer(serverIP + ":" + Settings.Port);
-            server.Start(newsocket =>
-            {
-                socket = newsocket;
-                newsocket.OnMessage = message => OnMessage(newsocket, message);
-            });
+			startServer();
         }
+
+		public void startServer() {
+			server = new WebSocketServer(serverIP + ":" + Settings.Port);
+			server.Start(newsocket =>
+			{
+				socket = newsocket;
+				newsocket.OnMessage = message => OnMessage(newsocket, message);
+			});
+		}
+
+		public void restartServer() {
+			server.Dispose();
+			startServer();
+		}
 
         public void Dispose()
         { 
@@ -89,6 +97,10 @@ namespace LiveSplit.UI.Components
 
         public void state_OnSplit(object sender, EventArgs e)
         {
+            socket.Send("split" + _sMC + formatSplitSend());
+        }
+
+        public string formatSplitSend() {
             string splitColor = HexConverter(LiveSplitStateHelper.GetSplitColor(state, state.CurrentTime[state.CurrentTimingMethod] - state.Run[state.CurrentSplitIndex - 1].Comparisons[state.CurrentComparison][state.CurrentTimingMethod],
                         state.CurrentSplitIndex - 1, true, false, state.CurrentComparison, state.CurrentTimingMethod).GetValueOrDefault());
             string delta = DeltaFormatter(LiveSplitStateHelper.GetLastDelta(state, state.CurrentSplitIndex - 1, state.CurrentComparison, state.CurrentTimingMethod).GetValueOrDefault());
@@ -99,12 +111,10 @@ namespace LiveSplit.UI.Components
                 splitColor = HexConverter(state.Layout.Settings.NotRunningColor);
             }
 
-            socket.Send("split"
-                + _sMC + state.Run[state.CurrentSplitIndex - 1].Name
-                + _sMC + TimeFormatter(state.CurrentTime[state.CurrentTimingMethod].GetValueOrDefault())
-                + _sMC + delta
-                + _sMC + splitColor
-            );
+			return state.Run[state.CurrentSplitIndex - 1].Name
+				+ _sMC + TimeFormatter(state.CurrentTime[state.CurrentTimingMethod].GetValueOrDefault())
+				+ _sMC + delta
+				+ _sMC + splitColor;
         }
 
         public void state_OnSkipSplit(object sender, EventArgs e)
