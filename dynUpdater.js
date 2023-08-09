@@ -1,6 +1,6 @@
 ﻿const urlParams = new URLSearchParams(window.location.search);
 //SETTINGS
-const websocketIP = urlParams.get('ip') || "ws://127.0.0.1:8085";
+const websocketIP = urlParams.get('url') || "ws://127.0.0.1:8085";
 const framerate = 15; //framerate
 const splitsMaxAmount = 5; //maximum amount of splits shown on screen
 
