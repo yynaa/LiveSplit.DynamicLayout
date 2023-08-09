@@ -160,6 +160,11 @@ body {
     animation-timing-function: cubic-bezier(0.5, 1, 0, 1);
 }
 
+.split-del-top {
+    animation-name: split_slideOutTop;
+    animation-timing-function: cubic-bezier(0.5, 1, 0, 1);
+}
+
 @keyframes split_slideIn {
     from {
         height: 0;
@@ -185,5 +190,15 @@ body {
         height: 0;
         left: 100%;
         margin-top: 0;
+    }
+}
+
+@keyframes split_slideOutTop {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(100%, 0);
     }
 }

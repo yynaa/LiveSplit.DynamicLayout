@@ -96,7 +96,9 @@ function createElem(tag, classes, content = undefined, post_hook = undefined, ch
 function document_AddSplit(inputname, time, delta, color) {
     if (splits.length >= splitsMaxAmount) {
         var collection = document.getElementsByClassName("split-container")
-        collection.item(0).remove();
+        const rem = Array.prototype.find.call(collection, (e) => !e.classList.contains("split-del-top"));
+        rem.classList.add("split-del-top");
+        rem.addEventListener("animationend", () => rem.remove());
         splits.shift();
     }
 
