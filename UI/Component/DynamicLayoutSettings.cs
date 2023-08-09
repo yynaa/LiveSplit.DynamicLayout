@@ -36,6 +36,8 @@ namespace LiveSplit.UI.Components
         {
 			InitializeComponent();
 			Port = 8085;
+			txtPort.Text = PortString;
+			curlabel.Text = "Current: " + PortString;
 			LocalIP = GetIP();
 			iplist.Text = LocalIP;
 			this.restartServer = restartServer;
