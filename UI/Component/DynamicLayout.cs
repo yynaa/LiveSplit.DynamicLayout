@@ -1,4 +1,4 @@
-﻿using LiveSplit.Model;
+using LiveSplit.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,17 +31,18 @@ namespace LiveSplit.UI.Components
         //CODE HERE
 
         private WebSocketServer server;
-        private string serverIP = "ws://127.0.0.1:8085";
+        private string serverIP = "ws://0.0.0.0";
 
         private string _sMC = "█"; //split message character
         private char _sMCchar = '█'; 
 
         private LiveSplitState state;
-        private IWebSocketConnection socket;
+        private List<IWebSocketConnection> sockets;
 
         public DynamicLayout(LiveSplitState newState)
-        { 
-            Settings = new DynamicLayoutSettings();
+        {
+			sockets = new List<IWebSocketConnection>();
+            Settings = new DynamicLayoutSettings(restartServer);
 
             newState.OnSplit += state_OnSplit;
             newState.OnSkipSplit += state_OnSkipSplit;
@@ -49,14 +50,23 @@ namespace LiveSplit.UI.Components
             newState.OnReset += state_OnReset;
 
             state = newState;
-
-            server = new WebSocketServer(serverIP);
-            server.Start(newsocket =>
-            {
-                socket = newsocket;
-                newsocket.OnMessage = message => OnMessage(newsocket, message);
-            });
+			startServer();
         }
+
+		public void startServer() {
+			server = new WebSocketServer(serverIP + ":" + Settings.Port);
+			server.Start(newsocket =>
+			{
+				sockets.Add(newsocket);
+				newsocket.OnMessage = message => OnMessage(newsocket, message);
+				newsocket.OnClose = () => sockets.Remove(newsocket);
+			});
+		}
+
+		public void restartServer() {
+			server.Dispose();
+			startServer();
+		}
 
         public void Dispose()
         { 
@@ -89,6 +99,10 @@ namespace LiveSplit.UI.Components
 
         public void state_OnSplit(object sender, EventArgs e)
         {
+            sockets.ForEach(s => s.Send("split" + _sMC + formatSplitSend()));
+        }
+
+        public string formatSplitSend() {
             string splitColor = HexConverter(LiveSplitStateHelper.GetSplitColor(state, state.CurrentTime[state.CurrentTimingMethod] - state.Run[state.CurrentSplitIndex - 1].Comparisons[state.CurrentComparison][state.CurrentTimingMethod],
                         state.CurrentSplitIndex - 1, true, false, state.CurrentComparison, state.CurrentTimingMethod).GetValueOrDefault());
             string delta = DeltaFormatter(LiveSplitStateHelper.GetLastDelta(state, state.CurrentSplitIndex - 1, state.CurrentComparison, state.CurrentTimingMethod).GetValueOrDefault());
@@ -99,33 +113,32 @@ namespace LiveSplit.UI.Components
                 splitColor = HexConverter(state.Layout.Settings.NotRunningColor);
             }
 
-            socket.Send("split"
-                + _sMC + state.Run[state.CurrentSplitIndex - 1].Name
-                + _sMC + TimeFormatter(state.CurrentTime[state.CurrentTimingMethod].GetValueOrDefault())
-                + _sMC + delta
-                + _sMC + splitColor
-            );
+			return state.Run[state.CurrentSplitIndex - 1].Name
+				+ _sMC + TimeFormatter(state.CurrentTime[state.CurrentTimingMethod].GetValueOrDefault())
+				+ _sMC + delta
+				+ _sMC + splitColor;
         }
 
         public void state_OnSkipSplit(object sender, EventArgs e)
-        {
-            socket.Send("split"
-                + _sMC + state.Run[state.CurrentSplitIndex - 1].Name
-                + _sMC + "-"
-                + _sMC + "-"
-                + _sMC + HexConverter(state.Layout.Settings.NotRunningColor)
-            );
+		{
+			string msg = "split"
+				+ _sMC + state.Run[state.CurrentSplitIndex - 1].Name
+				+ _sMC + "-"
+				+ _sMC + "-"
+				+ _sMC + HexConverter(state.Layout.Settings.NotRunningColor);
+
+			sockets.ForEach(s => s.Send(msg));
         }
 
         public void state_OnUndoSplit(object sender, EventArgs e)
-        {
-            socket.Send("undo");
-        }
+		{
+			sockets.ForEach(s => s.Send("undo"));
+		}
 
         public void state_OnReset(object sender, TimerPhase e)
         {
-            socket.Send("reset");
-        }
+			sockets.ForEach(s => s.Send("reset"));
+		}
 
         //RESPONSES
 
@@ -223,7 +236,7 @@ namespace LiveSplit.UI.Components
             }
             else
             {
-                s += time.ToString(@"h\:mm");
+                s += time.ToString(@"h\:mm\:ss");
             }
             return s;
         }

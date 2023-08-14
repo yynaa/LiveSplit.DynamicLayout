@@ -1,5 +1,6 @@
-﻿//SETTINGS
-const websocketIP = "ws://127.0.0.1:8085"; //DO NOT CHANGE FOR NOW!!
+﻿const urlParams = new URLSearchParams(window.location.search);
+//SETTINGS
+const websocketIP = urlParams.get('url') || "ws://127.0.0.1:8085";
 const framerate = 15; //framerate
 const splitsMaxAmount = 5; //maximum amount of splits shown on screen
 
@@ -24,6 +25,7 @@ websocket.addEventListener("close", (event) => {
 websocket.addEventListener("message", (event) => {
     var message = event.data;
     var messageArray = message.split(sMC);
+    // console.log(messageArray);
 
     if (messageArray.length > 0) {
         switch (messageArray[0]) {
@@ -74,105 +76,65 @@ function document_UpdateTimer(timer, ms, color) {
     element.style.color = color;
 }
 
-splitsMaxLength = 0;
 splits = [];
-splitAnimInterval = null;
 
-function document_UpdateSplitLooks() {
-    var offset = 832.5 - splits.length * 50
-    document.getElementById("splits-container").style.top = offset + "px"
-
-    document.getElementById("splits-container").style.width = splitsMaxLength + 20 + "px";
-    document.getElementById("splits-container").style.left = 982.5 - splitsMaxLength - 20 + "px";
+// Helper function to create nested div structure
+// Many JS frameworks have similar, but keeping no dependencies
+function createElem(tag, classes, content = undefined, post_hook = undefined, children = []) {
+    const elem = document.createElement(tag);
+    for (const c of classes) {
+        elem.classList.add(c);
+    }
+    if (content) elem.innerHTML = content;
+    for (const ch of children) {
+        elem.appendChild(ch);
+    }
+    if (post_hook) post_hook(elem);
+    return elem;
 }
 
 function document_AddSplit(inputname, time, delta, color) {
     if (splits.length >= splitsMaxAmount) {
         var collection = document.getElementsByClassName("split-container")
-        collection.item(0).remove();
+        const rem = Array.prototype.find.call(collection, (e) => !e.classList.contains("split-del-top"));
+        rem.classList.add("split-del-top");
+        rem.addEventListener("animationend", () => rem.remove());
         splits.shift();
     }
-    var subsplitOffset = 0
 
     var name = inputname
-
-    //subsplit detection
-    if (name[0] == "-") {
-        name = name.substring(1);
-        subsplitOffset = 20
-    }
+    const subsplit = name[0] == "-";
+    if (subsplit) name = name.substring(1);
 
     //section name detection
     if (name.includes("{")) {
         name = name.substring(name.indexOf("{") + 1, name.indexOf("}"))
     }
 
-    var length = 90 + 15 * 2 + displayTextWidth(name, "400 18px Roboto");
-    var leftBG = length - 90
+    const newSplit = createElem("div", ["split-container"], undefined, undefined, [
+        createElem("div", ["split-name"], name),
+        createElem("div", ["split-delta"], delta, (e) => e.style.color = color),
+        createElem("div", ["split-time"], time)
+    ]);
+    //subsplit detection
+    if (subsplit) newSplit.classList.add("subsplit");
 
-
-    document.getElementById("splits-container").innerHTML = document.getElementById("splits-container").innerHTML
-        + '<div class="split-container split-container-anim-slideIn" style="margin-right: ' + subsplitOffset + 'px;"><div class="split-background" style="width:' + length + 'px;"/><span class="split-name">' + name + '</span><div class="split-time-background" style="left:' + leftBG + 'px;" /><span class="split-time" style="color:' + color + ';">' + delta + '</span></div>';
-    if (length > splitsMaxLength) { splitsMaxLength = length; }
+    document.getElementById("splits-container").appendChild(newSplit);
     splits[splits.length] = [name, time, delta, color];
-
-    clearInterval(splitAnimInterval)
-    splitAnimInterval = setInterval(anim_ClearAllAnims, 1000)
-
-    document.getElementById("splits-container").classList.add("splits-container-anim-slideIn");
-
-    document_UpdateSplitLooks();
 }
 
 function document_ResetSplits() {
-    clearInterval(splitAnimInterval)
-    anim_ClearAllAnims()
     document.getElementById("splits-container").innerHTML = ""
     splits = []
-    splitsMaxLength = 0;
 }
 
 function document_UndoSplit() {
-    clearInterval(splitAnimInterval);
-    anim_ClearAllAnims();
-
     splits.pop();
 
-    splitsMaxLength = 0;
-    var collection = document.getElementsByClassName("split-name")
-    Array.from(collection).forEach(function (element) {
-        var length = 90 + 15 * 2 + displayTextWidth(element.innerHTML, "400 18px Roboto");
-        if (length > splitsMaxLength) { splitsMaxLength = length; }
-    });
-    var collection = document.getElementsByClassName("split-container")
-    collection.item(collection.length - 1).remove();
-
-    clearInterval(splitAnimInterval)
-    splitAnimInterval = setInterval(anim_ClearAllAnims, 1000)
-
-    document.getElementById("splits-container").classList.add("splits-container-anim-slideOut");
-
-    document_UpdateSplitLooks();
-}
-
-function anim_Filter(value) { return value == "split-container-anim-slideIn"; }
-
-function anim_ClearAllAnims() {
-    clearInterval(splitAnimInterval)
-    var collection = document.getElementsByClassName("split-container-anim-slideIn")
-    Array.from(collection).forEach(function (element) {
-        element.classList.remove("split-container-anim-slideIn");
-    });
-    document.getElementById("splits-container").classList.remove("splits-container-anim-slideIn");
-    document.getElementById("splits-container").classList.remove("splits-container-anim-slideOut");
-}
-
-//MISC STUFF
-
-function displayTextWidth(text, font) {
-    let canvas = displayTextWidth.canvas || (displayTextWidth.canvas = document.createElement("canvas"));
-    let context = canvas.getContext("2d");
-    context.font = font;
-    let metrics = context.measureText(text);
-    return metrics.width;
+    // Find newest split that is not in the process of animating out
+    var collection = document.getElementsByClassName("split-container");
+    const split = Array.prototype.findLast.call(collection, (e) => !e.classList.contains("split-del"));
+    // Add delete anim and delete element on anim end
+    split.classList.add("split-del");
+    split.addEventListener("animationend", () => split.remove());
 }

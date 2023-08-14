@@ -2,207 +2,203 @@
 
 body {
     font-family: Roboto;
+    color: white;
+
+    /* Use to limit max width of splits */
+    --max-width: 500px;
+
     --corner-radius: 20px;
+    --split-mar: 5px;
+    --split-height: 45px;
+    --entry-pad: 15px;
+    --anim-duration: 1s;
 }
 
+#main {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+    max-width: var(--max-width);
+
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+}
+
+#times {
+    position: relative;
+    margin-top: var(--split-mar);
+}
+
+
 #timer-background {
-    width: 180px;
+    min-width: 180px;
+    width: fit-content;
+    padding: 0 10px;
     height: 100px;
     line-height: 100px;
-    background: radial-gradient(circle, rgba(30,30,30,0.95) 0%, rgba(0,0,0,0.95) 100%);
-    color: white;
+    background: radial-gradient(circle, rgba(30, 30, 30, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
     border-top-left-radius: var(--corner-radius);
-    position: fixed;
-    left: 800px;
-    top: 835px;
-    z-index: 0;
+    position: relative;
+}
+
+#timer,
+#timer-ms {
+    width: 100%;
+    height: 100%;
+    font-weight: 300;
 }
 
 #timer {
-    width: 180px;
-    height: 100px;
     line-height: 100px;
-    position: fixed;
-    font-weight: 300;
     font-size: 50px;
     text-align: center;
-    z-index: 1;
 }
 
 #timer-ms {
-    width: 180px;
-    height: 100px;
     line-height: 30px;
-    position: fixed;
-    font-weight: 300;
     font-size: 20px;
     text-align: right;
-    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 #info-background {
-    position: fixed;
-    width: 180px;
+    width: 100%;
     height: 45px;
+    display: flex;
     line-height: 45px;
-    background: radial-gradient(circle, rgba(30,30,30,0.7) 0%, rgba(0,0,0,0.7) 100%);
-    color: white;
+    background: radial-gradient(circle, rgba(30, 30, 30, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
     border-bottom-left-radius: var(--corner-radius);
     border-bottom-right-radius: var(--corner-radius);
-    left: 800px;
-    top: 935px;
-    z-index: 0;
 }
 
 #info {
-    position: fixed;
     font-size: 18px;
     margin-left: 15px;
-    z-index: 1;
-}
-
-#infotime-background {
-    width: 90px;
-    height: 45px;
-    line-height: 45px;
-    background-color: rgba(0,0,0,0.3);
-    color: white;
-    border-bottom-right-radius: var(--corner-radius);
-    position: fixed;
-    left: 890px;
-    top: 935px;
-    text-align: center;
-    z-index: 1;
+    flex-grow: 1;
 }
 
 #infotime {
-    position: fixed;
-    left: 890px;
-    top: 935px;
-    width: 90px;
+    width: 50%;
+    height: 45px;
+    line-height: 45px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-bottom-right-radius: var(--corner-radius);
     text-align: center;
     font-size: 18px;
     font-weight: 400;
-    z-index: 0;
-}
-
-.splits-container-anim-slideIn {
-    animation-duration: 1s;
-    animation-name: splits_slideIn;
 }
 
 #splits-container {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 980px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
 }
 
 .split-container {
     position: relative;
+    height: var(--split-height);
+    margin-top: var(--split-mar);
+    overflow: hidden;
+
+    display: grid;
+    grid-column: span 3;
+    grid-template-columns: subgrid;
 }
 
-.split-container-anim-slideIn{
-    animation-duration: 1s;
-    animation-timing-function: ease-out;
-    animation-name: split_slideIn;
+.split-container div:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #333b;
 }
 
-.splits-container-anim-slideIn {
-    position: relative;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0,0.5,0,1);
-    animation-name: splits_slideIn;
-}
-
-.splits-container-anim-slideOut {
-    position: relative;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0,0.5,0,1);
-    animation-name: splits_slideOut;
-}
-
-.split-background {
-    position: relative;
-    height: 45px;
-    line-height: 45px;
-    text-align: left;
-    margin: 2.5px;
-    z-index: -3;
-    background: radial-gradient(circle, rgba(30,30,30,0.7) 0%, rgba(0,0,0,0.7) 100%);
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: var(--corner-radius);
-    border-top-left-radius: var(--corner-radius);
-    border-top-right-radius: var(--corner-radius);
+.split-container div:last-child {
+    border-top-right-radius: 20px;
+    background-color: #333b;
 }
 
 .split-name {
-    width: 400px;
-    height: 45px;
+    width: fit-content;
+    margin-left: auto;
+
+    padding: 0 var(--entry-pad);
     line-height: 45px;
-    margin-left: 15px;
-    margin-right: 15px;
     text-align: left;
     font-size: 18px;
     font-weight: 400;
-    z-index: -1;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    overflow: hidden;
 }
 
-.split-time-background {
-    width: 90px;
-    height: 45px;
+.split-time,
+.split-delta {
+    padding: 0 var(--entry-pad);
     line-height: 45px;
-    background-color: rgba(0,0,0,0.3);
-    color: white;
-    border-top-right-radius: var(--corner-radius);
-    position: relative;
-    bottom: 45px;
     text-align: center;
-    z-index: -2;
-}
-
-.split-time {
-    position: relative;
-    width: 400px;
-    height: 45px;
-    line-height: 45px;
-    margin-left: 15px;
-    margin-right: 15px;
-    text-align: left;
     font-size: 18px;
     font-weight: 400;
-    z-index: -1;
+    background-color: #333e;
+}
+
+/* Animation stuff */
+.split-container {
+    animation-duration: var(--anim-duration);
+    animation-name: split_slideIn;
+    animation-timing-function: cubic-bezier(0, 0.5, 0, 1);
+    animation-iteration-count: 1;
+}
+
+.split-del {
+    animation-name: split_slideOut;
+    animation-timing-function: cubic-bezier(0.5, 1, 0, 1);
+}
+
+.split-del-top {
+    animation-name: split_slideOutTop;
+    animation-timing-function: cubic-bezier(0.5, 1, 0, 1);
 }
 
 @keyframes split_slideIn {
     from {
+        height: 0;
         left: 100%;
+        margin-top: 0;
     }
+
     to {
+        height: var(--split-height);
         left: 0px;
+        margin-top: var(--split-mar);
     }
 }
 
-@keyframes splits_slideIn {
+@keyframes split_slideOut {
     from {
-        margin-top: 50px;
+        height: var(--split-height);
+        left: 0px;
+        margin-top: var(--split-mar);
     }
 
     to {
-        margin-top: 0px;
+        height: 0;
+        left: 100%;
+        margin-top: 0;
     }
 }
 
-@keyframes splits_slideOut {
+@keyframes split_slideOutTop {
     from {
-        margin-top: -50px;
+        transform: translate(0, 0);
     }
 
     to {
-        margin-top: 0px;
+        transform: translate(100%, 0);
     }
 }

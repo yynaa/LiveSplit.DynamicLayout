@@ -1,22 +1,30 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Dynamic Layout</title>
     <link href="./style.css" rel="stylesheet">
     <script src="./dynUpdater.js"></script>
 </head>
-<body>
-    <div id="timer-background" />
-    <div id="timer">Loading</div>
-    <div id="timer-ms"></div>
-    <div id="info-background" />
-    <div id="info"></div>
-    <div id="infotime-background" />
-    <div id="infotime"></div>
 
-    <div id="splits-container">
+<body>
+    <div id="main">
+        <div id="times">
+            <div id="timer-background">
+                <div id="timer">Loading</div>
+                <div id="timer-ms"></div>
+            </div>
+            <div id="info-background">
+                <div id="info"></div>
+                <div id="infotime"></div>
+            </div>
+        </div>
+        <div id="splits">
+            <div id="splits-container"></div>
+        </div>
     </div>
 </body>
+
 </html>
