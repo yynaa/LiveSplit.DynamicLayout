@@ -1,5 +1,9 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Roboto;
     color: white;
@@ -94,8 +98,6 @@ body {
 
 #splits-container {
     overflow: hidden;
-    display: grid;
-    grid-template-columns: max-content max-content max-content;
 }
 
 .split-container {
@@ -103,10 +105,7 @@ body {
     height: var(--split-height);
     margin-top: var(--split-mar);
     overflow: hidden;
-
-    display: grid;
-    grid-column: span 3;
-    grid-template-columns: subgrid;
+    display: flex;
 }
 
 .split-container div:first-child {
@@ -145,6 +144,7 @@ body {
     font-size: 18px;
     font-weight: 400;
     background-color: #333e;
+    min-width: 90px;
 }
 
 /* Animation stuff */
@@ -169,13 +169,11 @@ body {
     from {
         height: 0;
         left: 100%;
-        margin-top: 0;
     }
 
     to {
         height: var(--split-height);
         left: 0px;
-        margin-top: var(--split-mar);
     }
 }
 
@@ -183,13 +181,11 @@ body {
     from {
         height: var(--split-height);
         left: 0px;
-        margin-top: var(--split-mar);
     }
 
     to {
         height: 0;
         left: 100%;
-        margin-top: 0;
     }
 }
 
