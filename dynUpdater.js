@@ -102,12 +102,13 @@ function document_AddSplit(inputname, time, delta, color) {
         splits.shift();
     }
 
-    var name = inputname
+    var name = inputname.trim();
     const subsplit = name[0] == "-";
-    if (subsplit) name = name.substring(1);
+    if (subsplit) name = name.substring(1).trim();
 
     //section name detection
     if (name.includes("{")) {
+        document_AddSplit("-" + name.substring(name.indexOf("}") + 1).trim(), time, delta, color);
         name = name.substring(name.indexOf("{") + 1, name.indexOf("}"))
     }
 
