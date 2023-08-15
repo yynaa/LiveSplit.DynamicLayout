@@ -7,45 +7,54 @@ const splitsMaxAmount = 5; //maximum amount of splits shown on screen
 //DO NOT EDIT
 const sMC = "█"
 
-console.log("trying to connect to " + websocketIP);
-const websocket = new WebSocket(websocketIP);
+var websocket;
+var interval;
+function reconnect() {
+    if (!websocket || websocket.readyState == WebSocket.CLOSED) {
+        console.log("Trying to connect to " + websocketIP);
+        websocket = new WebSocket(websocketIP);
 
-websocket.addEventListener("open", (event) => {
-    console.log("connected");
-    interval = setInterval(socket_RequestUpdate, 1000 / framerate);
-    setInterval(document_infoNext, 5000)
-});
+        websocket.addEventListener("open", (event) => {
+            console.log("connected");
+            interval = setInterval(socket_RequestUpdate, 1000 / framerate);
+            setInterval(document_infoNext, 5000)
+        });
 
-websocket.addEventListener("close", (event) => {
-    console.log("disconnected");
-    if (interval != null) { clearInterval(interval) };
-    document.write("Disconnected.");
-});
+        websocket.addEventListener("close", (event) => {
+            console.log("disconnected");
+            if (interval != null) { clearInterval(interval) };
+            document.getElementById("timer").innerText = "Disconn."
+        });
 
-websocket.addEventListener("message", (event) => {
-    var message = event.data;
-    var messageArray = message.split(sMC);
-    // console.log(messageArray);
+        websocket.addEventListener("message", (event) => {
+            var message = event.data;
+            var messageArray = message.split(sMC);
+            // console.log(messageArray);
 
-    if (messageArray.length > 0) {
-        switch (messageArray[0]) {
-            case "update":
-                document_UpdateInfo(messageArray[1], messageArray[2]);
-                document_UpdateTimer(messageArray[3], messageArray[4], messageArray[5]);
-                if (infoPanelPointer == -1) { document_infoNext(); }
-                break;
-            case "split":
-                document_AddSplit(messageArray[1], messageArray[2], messageArray[3], messageArray[4])
-                break;
-            case "undo":
-                document_UndoSplit();
-                break;
-            case "reset":
-                document_ResetSplits()
-                break;
-        }
+            if (messageArray.length > 0) {
+                switch (messageArray[0]) {
+                    case "update":
+                        document_UpdateInfo(messageArray[1], messageArray[2]);
+                        document_UpdateTimer(messageArray[3], messageArray[4], messageArray[5]);
+                        if (infoPanelPointer == -1) { document_infoNext(); }
+                        break;
+                    case "split":
+                        document_AddSplit(messageArray[1], messageArray[2], messageArray[3], messageArray[4])
+                        break;
+                    case "undo":
+                        document_UndoSplit();
+                        break;
+                    case "reset":
+                        document_ResetSplits()
+                        break;
+                }
+            }
+        })
+
     }
-})
+}
+setInterval(reconnect, 10000);
+reconnect();
 
 function socket_RequestUpdate() {
     websocket.send("update");
