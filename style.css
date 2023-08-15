@@ -16,6 +16,7 @@ body {
     --split-height: 45px;
     --entry-pad: 15px;
     --anim-duration: 1s;
+    --subsplit-indent: 20px;
 }
 
 #main {
@@ -106,6 +107,10 @@ body {
     margin-top: var(--split-mar);
     overflow: hidden;
     display: flex;
+}
+
+.subsplit {
+    margin-right: var(--subsplit-indent);
 }
 
 .split-container div:first-child {
