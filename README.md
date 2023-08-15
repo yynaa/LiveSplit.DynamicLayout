@@ -14,14 +14,13 @@ An OBS layout for LiveSplit
 - Select `Local file` and browse to `dyn.html`
 - Set size to `Width: 1000` and `Height: 1000`
 
+> [!NOTE]
+> DO NOT set `Page permissions` to `No access to OBS`, it may disable Javascript
+
 # Settings
 ## Javascript
 - `framerate`: pretty self-explanatory
 - `splitsMaxAmount`: maximum amount of splits shown on screen
 
-> [!IMPORTANT]
-> You need to start LiveSplit with the Dynamic Layout before starting OBS (or the browser).
-> A quick way to refresh the browser is to go in its properties, and press `Refresh cache of current page`
-
-> [!NOTE]
-> DO NOT set `Page permissions` to `No access to OBS`, it may disable Javascript
+## CSS
+see `style.css`
